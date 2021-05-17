@@ -10,17 +10,57 @@ namespace TDDKata
     public class TestClass
     {
         [Test]
-        public void SumTwoPositiveDigitsShouldBeCorrectResult()
+        public void SumTwoPositiveDigitsWithDefaultSeparatorNShouldBeCorrectResult()
         {
             //Arrange
             StringCalc calc = new StringCalc();
             
             //Act
-            int value = calc.Sum("2,2");
+            int value = calc.Sum(@"2\n2");
             
             //Assert
             Assert.That(value, Is.EqualTo(4), "Wrong actual value");
         }
+
+        [Test]
+        public void SumTwoPositiveDigitsWithDefaultSeparatorCommaShouldBeCorrectResult()
+        {
+            //Arrange
+            StringCalc calc = new StringCalc();
+
+            //Act
+            int value = calc.Sum("2,2");
+
+            //Assert
+            Assert.That(value, Is.EqualTo(4), "Wrong actual value");
+        }
+
+        [Test]
+        public void SumManyPositiveDigitsWithDefaultSeparatorsCommaAndNShouldBeCorrectResult()
+        {
+            //Arrange
+            StringCalc calc = new StringCalc();
+
+            //Act
+            int value = calc.Sum(@"2,2\n3");
+
+            //Assert
+            Assert.That(value, Is.EqualTo(7), "Wrong actual value");
+        }
+
+        [Test]
+        public void SumManyPositiveDigitsWithCustomAndDefaultSeparatorsCommaAndNShouldBeCorrectResult()
+        {
+            //Arrange
+            StringCalc calc = new StringCalc();
+
+            //Act
+            int value = calc.Sum(@"//;\n2,2\n3;4");
+
+            //Assert
+            Assert.That(value, Is.EqualTo(11), "Wrong actual value");
+        }
+
 
         [Test]
         public void SumOnePositiveDigitsShouldBeCorrectResult()
@@ -49,7 +89,7 @@ namespace TDDKata
         }
 
         [Test]
-        public void SumManyPositiveDigitsShouldBeErrorCode()
+        public void SumManyPositiveDigitsShouldBeCorrectCode()
         {
             //Arrange
             StringCalc calc = new StringCalc();
@@ -58,7 +98,7 @@ namespace TDDKata
             int value = calc.Sum("2,2,2");
 
             //Assert
-            Assert.That(value, Is.EqualTo(-1), "Wrong actual value");
+            Assert.That(value, Is.EqualTo(6), "Wrong actual value");
         }
 
         [Test]
